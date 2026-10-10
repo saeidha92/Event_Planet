@@ -1,11 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class User(AbstractUser):
     """
-    Custom user model that extends the default Django AbstractUser.
-    Additional fields can be added here if needed.
+    Custom user model.
+    We add a 'role' field so every user is either a Participant or an Organizer.
+    A simple CharField with choices is enough here (roles do not change
+    dynamically, so we do not need a separate Role table).
     """
 
     class Role(models.TextChoices):

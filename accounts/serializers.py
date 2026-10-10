@@ -15,7 +15,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "email", "password", "role"]
 
     def create(self, validated_data):
-
+        # create_user() takes care of hashing the password for us
         user = User.objects.create_user(
             username=validated_data["username"],
             email=validated_data.get("email", ""),
@@ -26,6 +26,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Small serializer just to show basic user info (used inside other serializers)."""
 
     class Meta:
         model = User

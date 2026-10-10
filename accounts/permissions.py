@@ -36,6 +36,6 @@ class IsEventOwner(BasePermission):
     message = "You can only manage events that you own."
 
     def has_object_permission(self, request, view, obj):
-
+        # obj can be an Event, or anything with an 'event' FK.
         event = obj if hasattr(obj, "organizer") else getattr(obj, "event", None)
         return bool(event and event.organizer_id == request.user.id)
