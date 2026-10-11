@@ -18,7 +18,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from events.urls import organizer_urlpatterns as events_organizer_urls
+from events.urls import public_urlpatterns as events_public_urls
+from feedback.urls import organizer_urlpatterns as feedback_organizer_urls
+from feedback.urls import participant_urlpatterns as feedback_participant_urls
+from feedback.urls import public_urlpatterns as feedback_public_urls
+from registrations.urls import participant_urlpatterns as registrations_participant_urls
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/auth/", include("accounts.urls")),
+    path("api/public/", include(events_public_urls + feedback_public_urls)),
+    path(
+        "api/participant/",
+        include(registrations_participant_urls + feedback_participant_urls),
+    ),
+    path("api/organizer/", include(events_organizer_urls + feedback_organizer_urls)),
 ]
